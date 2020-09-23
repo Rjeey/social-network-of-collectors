@@ -6,6 +6,7 @@ import { isEmail } from "validator";
 import Avatar from "@material-ui/core/Avatar";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 
 import AuthService from "../../service/auth.service";
 
@@ -70,6 +71,8 @@ const Register = (props) => {
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
+  let history = useHistory();
+
   const onChangeUsername = (e) => {
     const username = e.target.value;
     setUserName(username);
@@ -96,8 +99,8 @@ const Register = (props) => {
     if (checkBtn.current.context._errors.length === 0) {
       AuthService.register(username, email, password).then(
         (response) => {
-          setMessage(response.data.message);
           setSuccessful(true);
+          history.push("/login");
         },
         (error) => {
           const resMessage =
@@ -166,12 +169,7 @@ const Register = (props) => {
           )}
           {message && (
             <div className="form-group">
-              <div
-                className={
-                  successful ? "alert alert-success" : "alert alert-danger"
-                }
-                role="alert"
-              >
+              <div className={!successful && "alert alert-danger"} role="alert">
                 {message}
               </div>
             </div>

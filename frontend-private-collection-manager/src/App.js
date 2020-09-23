@@ -14,7 +14,7 @@ import Profile from "./component/Profile";
 
 const App = () => {
   const [showTableUsers, setShowTableUsers] = useState(false);
-  const [currentUser, setCurrentUser] = useState(" ");
+  const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -71,9 +71,9 @@ const App = () => {
                   <Nav.Link>{currentUser.username}</Nav.Link>
                 </LinkContainer>
                 <Nav>
-                  <LinkContainer to="/login">
-                    <Nav.Link onClick={logOut}>LogOut</Nav.Link>
-                  </LinkContainer>
+                  <Nav.Link href="/login" onClick={logOut}>
+                    LogOut
+                  </Nav.Link>
                 </Nav>
               </Nav>
             ) : (

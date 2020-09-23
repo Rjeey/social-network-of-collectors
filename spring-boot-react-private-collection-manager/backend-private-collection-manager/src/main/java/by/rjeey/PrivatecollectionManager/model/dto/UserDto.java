@@ -18,5 +18,7 @@ public class UserDto {
     @NotBlank
     private String username;
     @NotBlank
+    private String email;
+    @NotBlank
     private Set<Role> roles;
 }

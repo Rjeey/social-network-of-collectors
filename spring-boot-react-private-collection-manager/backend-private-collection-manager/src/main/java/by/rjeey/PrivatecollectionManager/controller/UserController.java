@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping(value = "/api/data")
@@ -19,25 +20,56 @@ public class UserController {
     UserService userService;
 
     @Autowired
-    public UserController(UserService userService){
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<UserDto> getUsers(){
+    public List<UserDto> getUsers() {
         return userService.getUsers();
     }
 
-    @PostMapping("/delete")
+    @PostMapping("/delete/user")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteUser(@Valid @RequestBody UserDto userDto){
-        if(userService.existsById(userDto.getId()))
+    public ResponseEntity<?> deleteUser(@Valid @RequestBody UserDto userDto) {
+        if (!userService.existsById(userDto.getId()))
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: User is not found!"));
-        userService.deleteUser(userDto.getId());
-        return ResponseEntity
-                .ok(new MessageResponse("User deleted successfully!"));
+        else {
+            userService.deleteUser(userDto.getId());
+            return ResponseEntity
+                    .ok(new MessageResponse("User deleted successfully!"));
+        }
     }
+
+    @PostMapping("/delete/users")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteUsers(@RequestBody List<UserDto> usersDto) {
+        if (usersDto.isEmpty())
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: List is empty!"));
+        else {
+            userService.deleteUsers(usersDto);
+            return ResponseEntity
+                    .ok(new MessageResponse("Users deleted successfully!"));
+        }
+    }
+
+    @PostMapping("/update/user")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> updateUser(@RequestBody UserDto userDto) {
+
+        if (userDto != null) {
+            userService.updateUser(userDto);
+            return ResponseEntity.ok(new MessageResponse("User deleted successfully!"));
+        } else
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: user update is not successfully!"));
+    }
+
+
 }

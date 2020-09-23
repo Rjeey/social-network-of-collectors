@@ -32,6 +32,17 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public void deleteUsers(List<UserDto> usersDto){
+        List<User> users = UserMapper.INSTANCE.usersDtoToUsers(usersDto);
+        userRepository.deleteAll(users);
+    }
+
+    public void updateUser(UserDto userDto){
+        User user = userRepository.getUserById(userDto.getId());
+        UserMapper.INSTANCE.updateUser(userDto, user);
+        userRepository.save(user);
+    }
+
     public boolean existsById(Long id) {
         return userRepository.existsById(id);
     }
