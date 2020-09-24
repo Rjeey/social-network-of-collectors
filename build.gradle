@@ -2,7 +2,8 @@ plugins {
     id 'org.springframework.boot' version '2.3.3.RELEASE'
     id 'org.liquibase.gradle' version '2.0.1'
     id 'java'
-    id 'com.moowork.node' version '1.3.1'
+
+    id "com.github.node-gradle.node" version "3.0.0-rc2"
 }
 
 apply plugin: 'io.spring.dependency-management'
@@ -24,12 +25,10 @@ repositories {
 }
 
 node {
-    version = '12.13.0'
     download = true
 
-    workDir = file("${project.projectDir}/frontend-private-collection-manager/nodejs")
-    npmWorkDir = file("${project.projectDir}/frontend-private-collection-manager/npm")
-    nodeModulesDir = file("${project.projectDir}/frontend-private-collection-manager")
+    workDir = file("${project.buildDir}/nodejs")
+    npmWorkDir = file("${project.projectDir}/npm")
 }
 
 processResources {
@@ -37,32 +36,24 @@ processResources {
 }
 
 task copyFrontendToBuild(type: Copy) {
-    from "${project.projectDir}/frontend-private-collection-manager/build/"
-    into "${project.buildDir}/resources/main/static"
+    from "src/main/frontend/build"
+    into "build/resources/main/static/."
 }
 
-task npmBuild(type:NpmTask){
-	execOverrides{
-		it.workingDir='src/main/frontend-private-collection-manager'
-	}
-	args=['run', 'build']
+task appNpmBuild(type: NpmTask) {
+    workingDir =file("${project.projectDir}/src/main/frontend")
+    args = ["run", "build"]
 }
 
-task npmShowVersion(type:NpmTask){
-	execOverrides{
-		it.ignoreExitValue = true
-		it.workingDir = '/frontend-private-collection-manager'
-	}
-	args=['--version']
+task appNpmInstall(type: NpmTask) {
+    ignoreExitValue = true
+    workingDir = file("${project.projectDir}/src/main/frontend")
+    args = ['install']
 }
 
-task npmInstall2(type:NpmTask){
-	execOverrides{
-		it.ignoreExitValue = true
-		it.workingDir = '/frontend-private-collection-manager'
-	}
-	args=['install']
-}
+appNpmBuild.dependsOn appNpmInstall
+copyFrontendToBuild.dependsOn appNpmBuild
+compileJava.dependsOn copyFrontendToBuild
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
