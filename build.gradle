@@ -24,11 +24,12 @@ repositories {
 }
 
 node {
+    version = '12.13.0'
     download = true
 
-    workDir = file("${project.projectDir}/src/main/frontend-private-collection-manager/nodejs")
-    npmWorkDir = file("${project.projectDir}/scr/main/frontend-private-collection-manager/npm")
-    nodeModulesDir = file("${project.projectDir}/src/main/frontend-private-collection-manager")
+    workDir = file("${project.projectDir}/frontend-private-collection-manager/nodejs")
+    npmWorkDir = file("${project.projectDir}/frontend-private-collection-manager/npm")
+    nodeModulesDir = file("${project.projectDir}/frontend-private-collection-manager")
 }
 
 processResources {
@@ -36,8 +37,8 @@ processResources {
 }
 
 task copyFrontendToBuild(type: Copy) {
-    from "$projectDir/src/main/frontend-private-collection-manager/build/"
-    into "$buildDir/resources/main/static"
+    from "${project.projectDir}/frontend-private-collection-manager/build/"
+    into "${project.buildDir}/resources/main/static"
 }
 
 task npmBuild(type:NpmTask){
@@ -50,7 +51,7 @@ task npmBuild(type:NpmTask){
 task npmShowVersion(type:NpmTask){
 	execOverrides{
 		it.ignoreExitValue = true
-		it.workingDir = 'src/main/frontend-private-collection-manager'
+		it.workingDir = '/frontend-private-collection-manager'
 	}
 	args=['--version']
 }
@@ -58,7 +59,7 @@ task npmShowVersion(type:NpmTask){
 task npmInstall2(type:NpmTask){
 	execOverrides{
 		it.ignoreExitValue = true
-		it.workingDir = 'src/main/frontend-private-collection-manager'
+		it.workingDir = '/frontend-private-collection-manager'
 	}
 	args=['install']
 }
