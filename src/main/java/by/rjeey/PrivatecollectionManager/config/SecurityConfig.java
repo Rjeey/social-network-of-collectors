@@ -6,6 +6,7 @@ import by.rjeey.PrivatecollectionManager.util.security.jwt.AuthTokenFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -54,7 +55,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
-                .antMatchers("/index.html","/","/login**","/js/**","/error**", "/favicon.ico").permitAll()
+                .antMatchers(HttpMethod.GET,
+                        "/index*","/","/static/**","/*.js",
+                        "/*.json", "/*.ico","/*.png").permitAll()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/data/**").permitAll()
                 .anyRequest().authenticated();
