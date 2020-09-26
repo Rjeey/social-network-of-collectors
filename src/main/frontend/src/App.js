@@ -100,7 +100,7 @@ const App = () => {
 
             <div className="container mt-3">
                 <Switch>
-                    <Router history={BrowserRouter}>
+                    <Router>
                         <Route path={["/", "/home"]} exact component={Home}/>
                         <Route path="/login" exact component={Login}/>
                         <Route path="/register" exact component={Register}/>
