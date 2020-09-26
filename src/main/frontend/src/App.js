@@ -100,13 +100,11 @@ const App = () => {
 
             <div className="container mt-3">
                 <Switch>
-                    <Router>
                         <Route path={["/", "/home"]} exact component={Home}/>
                         <Route path="/login" exact component={Login}/>
                         <Route path="/register" exact component={Register}/>
                         <Route path="/profile" exact component={Profile}/>
                         <Route path="/list" component={Table}/>
-                    </Router>
                 </Switch>
             </div>
         </div>
