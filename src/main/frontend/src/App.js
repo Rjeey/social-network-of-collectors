@@ -4,7 +4,7 @@ import Register from "./component/registration/registration";
 import Home from "./component/Home/Home";
 import Table from "./component/Table/Table";
 import { Navbar, Nav } from "react-bootstrap";
-import { Switch, Route, Link, useLocation } from "react-router-dom";
+import { Switch, Route, Link, useLocation, useHistory } from "react-router-dom";
 import { LinkContainer } from "react-router-bootstrap";
 
 import AuthService from "./service/auth.service";
@@ -16,6 +16,8 @@ const App = () => {
   const [showTableUsers, setShowTableUsers] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
 
+  let history = useHistory();
+
   useEffect(() => {
     const user = AuthService.getCurrentUser();
 
@@ -26,7 +28,9 @@ const App = () => {
   }, []);
 
   const logOut = () => {
-    AuthService.logout();
+    AuthService.logout()
+          history.push("/login");
+          window.location.reload();
   };
   const location = useLocation();
   return (
@@ -71,9 +75,11 @@ const App = () => {
                   <Nav.Link>{currentUser.username}</Nav.Link>
                 </LinkContainer>
                 <Nav>
-                  <Nav.Link href="/login" onClick={logOut}>
+                  <LinkContainer to="/login">
+                  <Nav.Link onClick={logOut}>
                     LogOut
                   </Nav.Link>
+                  </LinkContainer>
                 </Nav>
               </Nav>
             ) : (
@@ -94,10 +100,10 @@ const App = () => {
 
       <div className="container mt-3">
         <Switch>
-          <Route exact path={["/", "/home"]} component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/profile" component={Profile} />
+          <Route path={["/", "/home"]} exact component={Home} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/register" exact component={Register} />
+          <Route path="/profile" exact component={Profile} />
           <Route path="/list" component={Table} />
         </Switch>
       </div>

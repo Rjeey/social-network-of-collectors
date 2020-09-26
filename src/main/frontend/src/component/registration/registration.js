@@ -32,7 +32,7 @@ const required = (value) => {
 const validEmail = (value) => {
   if (!isEmail(value)) {
     return (
-      <div clasName="alert alert-danger" role="alert">
+      <div className="alert alert-danger" role="alert">
         This is not a valid email.
       </div>
     );
