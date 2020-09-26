@@ -13,3 +13,5 @@ spring:
 app:
   jwtSecret: RjeeySecretKey
   jwtExpirationMs: 86400000
+server:
+  port: 8080
