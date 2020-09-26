@@ -1,7 +1,7 @@
 spring:
    datasource:
      driver-class-name: com.mysql.jdbc.Driver
-     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/private_collection_manager?serverTimezone=UTC}
+     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/private_collection_manager?autoReconnect=true&&useSSl=false&&serverTimezone=UTC}
      username: ${SPRING_DATASOURCE_USERNAME:root}
      password: ${SPRING_DATASOURCE_PASSWORD:root}
      initialization-mode: always
@@ -9,7 +9,7 @@ spring:
      show-sql: true
      hibernate:
        ddl-auto: create
-     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+     database: mysql
 app:
   jwtSecret: RjeeySecretKey
   jwtExpirationMs: 86400000
