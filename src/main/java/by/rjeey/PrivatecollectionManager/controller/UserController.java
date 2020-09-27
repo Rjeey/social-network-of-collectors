@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+
 @RestController
 @RequestMapping(value = "/api/data")
+@CrossOrigin(origins = "http://localhost:9000", maxAge = 3600)
 public class UserController {
 
     @Autowired
