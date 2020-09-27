@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Register from "../registration/registration";
-import UserService from "../../service/user.service";
 import "./Home.css";
 import AuthService from "../../service/auth.service";
 
