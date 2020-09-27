@@ -15,10 +15,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/data")
 @CrossOrigin(origins = "*",
-        allowCredentials = "false", allowedHeaders = "X-AUTH-TOKEN",
-        maxAge = 3600, methods = {
-        RequestMethod.GET,
-        RequestMethod.POST})
+        allowCredentials = "false",
+        maxAge = 3600)
 public class UserController {
 
     @Autowired
