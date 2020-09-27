@@ -15,5 +15,5 @@ app:
   jwtExpirationMs: 86400000
 
 server:
-  port: ${PORT:8085}
+  port: ${PORT:8080}
 
