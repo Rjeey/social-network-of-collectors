@@ -4,7 +4,7 @@ import Register from "./component/registration/registration";
 import Home from "./component/Home/Home";
 import Table from "./component/Table/Table";
 import {Navbar, Nav} from "react-bootstrap";
-import {Switch, Route, Router, Link, useLocation, useHistory} from "react-router-dom";
+import {Switch, Route, Link, useLocation, useHistory, HashRouter} from "react-router-dom";
 import {LinkContainer} from "react-router-bootstrap";
 
 import AuthService from "./service/auth.service";
@@ -99,13 +99,15 @@ const App = () => {
             </Navbar>
 
             <div className="container mt-3">
-                <Switch>
-                        <Route path={["/", "/home"]} render={()=><Home user={currentUser}/>} exact component={Home}/>
+                <HashRouter>
+                    <Switch>
+                        <Route path={["/", "/home"]} render={() => <Home user={currentUser}/>} exact component={Home}/>
                         <Route path="/login" component={Login}/>
                         <Route path="/register" exact component={Register}/>
                         <Route path="/profile" exact component={Profile}/>
                         <Route path="/list" component={Table}/>
-                </Switch>
+                    </Switch>
+                </HashRouter>
             </div>
         </div>
     );
