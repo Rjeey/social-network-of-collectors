@@ -6,7 +6,7 @@ import "./Home.css";
 const Home = () => {
   return (
     <div className="container">
-      <div className="row mt-3">
+      <div className="row mt-5">
         <div className="col-md-5 spacing5">
           <h1 className="h1 font-weight-bold">Sing up Right now</h1>
           <h6 className="mb-4 spacing">Project Collections Manager</h6>
