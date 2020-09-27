@@ -1,19 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, {useState} from "react";
 import Register from "../registration/registration";
 import "./Home.css";
-import AuthService from "../../service/auth.service";
 
-const Home = () => {
+const Home = (user) => {
 
-  const [currentUser, setCurrentUser] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(user);
 
-  useEffect(() => {
-    const user = AuthService.getCurrentUser();
-
-    if (user) {
-      setCurrentUser(user);
-    }
-  }, []);
   return (
     <div className="container">
       <div className="row mt-5">
@@ -21,7 +13,7 @@ const Home = () => {
           <h1 className="h1 font-weight-bold">Sing up Right now</h1>
           <h6 className="mb-4 spacing">Project Collections Manager</h6>
         </div>
-        {!currentUser &&
+        {currentUser &&
             (
             <div className="col-md-6 col-xl-5 md-4 ">
               <Register/>
