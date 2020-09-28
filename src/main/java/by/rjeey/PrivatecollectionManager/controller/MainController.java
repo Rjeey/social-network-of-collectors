@@ -16,6 +16,6 @@ public class MainController {
 
     @GetMapping(value ={"/", ""})
     public String getIndex(HttpServletRequest request) {
-        return "/main/static/static/index.html";
+        return "index.html";
     }
 }
