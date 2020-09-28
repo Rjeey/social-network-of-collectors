@@ -14,7 +14,7 @@ public class MainController {
     @Value("${server.servlet.context-path}")
     private String contextPath;
 
-    @GetMapping(value ={"/", ""})
+    @GetMapping(value ={"/", "/profile", "/login"})
     public String getIndex(HttpServletRequest request) {
         return "index.html";
     }
