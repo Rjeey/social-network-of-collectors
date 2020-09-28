@@ -99,7 +99,6 @@ const App = () => {
             </Navbar>
 
             <div className="container mt-3">
-                <HashRouter>
                     <Switch>
                         <Route path={["/", "/home"]} render={() => <Home user={currentUser}/>} exact component={Home}/>
                         <Route path="/login" component={Login}/>
@@ -107,7 +106,6 @@ const App = () => {
                         <Route path="/profile" exact component={Profile}/>
                         <Route path="/list" component={Table}/>
                     </Switch>
-                </HashRouter>
             </div>
         </div>
     );
